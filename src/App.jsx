@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { TrendingUp, TrendingDown, Bell, Search, Plus, Camera, Menu, X, Home, BarChart3, User, ChevronRight, Settings } from 'lucide-react';
 
-export default function App() {
+export default function LuxyApp() {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [showMenu, setShowMenu] = useState(false);
   const [selectedWatch, setSelectedWatch] = useState(null);
@@ -72,6 +72,461 @@ export default function App() {
     { metric: 'Hot Brand', value: 'Cartier', change: '+4% Growth' },
     { metric: 'Best Time', value: 'Buy Now', change: 'Q4 2024 Low' }
   ];
+
+  const WatchDetailView = () => (
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="lg:col-span-2 space-y-6">
+        <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-8">
+          <button 
+            onClick={() => setSelectedWatch(null)}
+            className="text-neutral-500 hover:text-neutral-900 text-sm mb-4 flex items-center"
+          >
+            ← Back to Watchlist
+          </button>
+          
+          <div className="flex gap-8 items-start">
+            <div className="text-8xl">⌚</div>
+            <div className="flex-1">
+              <div className="flex items-center gap-3 mb-2">
+                <h1 className="text-3xl font-light text-neutral-900">Rolex Daytona</h1>
+                <span className="bg-emerald-600 text-white px-3 py-1 rounded text-xs font-medium">
+                  BUY NOW
+                </span>
+              </div>
+              <p className="text-neutral-500 mb-4">Reference: 116500LN</p>
+              <div className="text-4xl font-light text-neutral-900 mb-2">$28,500</div>
+              <div className="flex items-center text-emerald-600 font-medium">
+                <TrendingDown className="w-4 h-4 mr-1" />
+                <span>Down 3.2% this week</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-6">
+          <h2 className="text-lg font-light text-neutral-900 mb-4">Price History</h2>
+          <div className="h-64 bg-neutral-50 rounded-lg flex items-center justify-center border border-neutral-200">
+            <p className="text-neutral-400 text-sm">Price chart visualization</p>
+          </div>
+          <div className="grid grid-cols-4 gap-4 mt-4">
+            <div className="text-center">
+              <div className="text-xs text-neutral-500 mb-1">1 WEEK</div>
+              <div className="text-emerald-600 font-medium">-3.2%</div>
+            </div>
+            <div className="text-center">
+              <div className="text-xs text-neutral-500 mb-1">1 MONTH</div>
+              <div className="text-emerald-600 font-medium">-5.1%</div>
+            </div>
+            <div className="text-center">
+              <div className="text-xs text-neutral-500 mb-1">3 MONTHS</div>
+              <div className="text-emerald-600 font-medium">-8.4%</div>
+            </div>
+            <div className="text-center">
+              <div className="text-xs text-neutral-500 mb-1">1 YEAR</div>
+              <div className="text-red-600 font-medium">+2.1%</div>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-xl border border-neutral-200 shadow-sm overflow-hidden">
+          <div className="p-6 border-b border-neutral-200">
+            <h2 className="text-lg font-light text-neutral-900">Available Listings</h2>
+          </div>
+          <div className="divide-y divide-neutral-200">
+            {[
+              { seller: 'Chrono24', condition: 'Excellent', price: 28500, location: 'Switzerland' },
+              { seller: 'WatchBox', condition: 'Very Good', price: 28200, location: 'USA' },
+              { seller: 'Bob\'s Watches', condition: 'Excellent', price: 28900, location: 'USA' }
+            ].map((listing, idx) => (
+              <div key={idx} className="p-5 hover:bg-neutral-50 transition-colors">
+                <div className="flex justify-between items-center">
+                  <div>
+                    <h3 className="text-neutral-900 font-medium mb-1">{listing.seller}</h3>
+                    <p className="text-neutral-500 text-sm">{listing.condition} • {listing.location}</p>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-neutral-900 font-medium text-lg">${listing.price.toLocaleString()}</div>
+                    <button className="text-neutral-900 text-sm font-medium hover:opacity-70 transition-opacity mt-1">
+                      View →
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="space-y-6">
+        <div className="bg-gradient-to-br from-neutral-900 to-neutral-800 rounded-xl p-6 text-white shadow-lg">
+          <h2 className="text-sm font-medium mb-4 opacity-80">AI RECOMMENDATION</h2>
+          <div className="mb-4">
+            <div className="text-2xl font-light mb-2">Strong Buy Signal</div>
+            <div className="text-sm text-neutral-300 leading-relaxed">
+              This model is at a 3-year low. Historical data suggests 15-20% appreciation within 6 months.
+            </div>
+          </div>
+          <div className="pt-4 border-t border-neutral-700">
+            <div className="text-xs opacity-70 mb-2">PREDICTED VALUE (6 MONTHS)</div>
+            <div className="text-xl font-medium">$32,800 - $34,200</div>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-5">
+          <h2 className="text-sm font-medium text-neutral-900 mb-4">SOCIAL ACTIVITY</h2>
+          <div className="space-y-3 text-sm">
+            <div className="flex justify-between">
+              <span className="text-neutral-500">Watching</span>
+              <span className="text-neutral-900 font-medium">142 collectors</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-neutral-500">Purchases (7 days)</span>
+              <span className="text-neutral-900 font-medium">3</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-neutral-500">Average Sale Price</span>
+              <span className="text-neutral-900 font-medium">$28,650</span>
+            </div>
+          </div>
+        </div>
+
+        <button className="w-full bg-neutral-900 hover:bg-neutral-800 text-white py-3 rounded-lg text-sm font-medium transition-colors">
+          Set Price Alert
+        </button>
+      </div>
+    </div>
+  );
+
+  const AddWatchView = () => (
+    <div className="max-w-2xl mx-auto">
+      <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-8">
+        <h1 className="text-2xl font-light text-neutral-900 mb-6">Add Watch to Portfolio</h1>
+        
+        <div className="space-y-6">
+          <div>
+            <label className="block text-sm font-medium text-neutral-900 mb-2">
+              Watch Photo
+            </label>
+            <div className="border-2 border-dashed border-neutral-300 rounded-xl p-12 text-center hover:border-neutral-900 transition-colors cursor-pointer">
+              <Camera className="w-12 h-12 text-neutral-400 mx-auto mb-3" />
+              <p className="text-neutral-600 font-medium mb-1">Click to upload or drag and drop</p>
+              <p className="text-neutral-400 text-sm">AI will identify your watch automatically</p>
+            </div>
+          </div>
+
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-neutral-200"></div>
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="px-4 bg-white text-neutral-500">OR ENTER MANUALLY</span>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-neutral-900 mb-2">Brand</label>
+              <input
+                type="text"
+                placeholder="e.g. Rolex"
+                className="w-full bg-neutral-50 border border-neutral-200 rounded-lg px-4 py-2.5 text-sm text-neutral-900 placeholder-neutral-400 focus:outline-none focus:border-neutral-900 transition-colors"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-neutral-900 mb-2">Model</label>
+              <input
+                type="text"
+                placeholder="e.g. Submariner"
+                className="w-full bg-neutral-50 border border-neutral-200 rounded-lg px-4 py-2.5 text-sm text-neutral-900 placeholder-neutral-400 focus:outline-none focus:border-neutral-900 transition-colors"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-neutral-900 mb-2">Reference Number</label>
+            <input
+              type="text"
+              placeholder="e.g. 116610LN"
+              className="w-full bg-neutral-50 border border-neutral-200 rounded-lg px-4 py-2.5 text-sm text-neutral-900 placeholder-neutral-400 focus:outline-none focus:border-neutral-900 transition-colors"
+            />
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-neutral-900 mb-2">Purchase Price</label>
+              <input
+                type="number"
+                placeholder="$12,000"
+                className="w-full bg-neutral-50 border border-neutral-200 rounded-lg px-4 py-2.5 text-sm text-neutral-900 placeholder-neutral-400 focus:outline-none focus:border-neutral-900 transition-colors"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-neutral-900 mb-2">Purchase Date</label>
+              <input
+                type="date"
+                className="w-full bg-neutral-50 border border-neutral-200 rounded-lg px-4 py-2.5 text-sm text-neutral-900 placeholder-neutral-400 focus:outline-none focus:border-neutral-900 transition-colors"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-neutral-900 mb-2">
+              Condition
+            </label>
+            <select className="w-full bg-neutral-50 border border-neutral-200 rounded-lg px-4 py-2.5 text-sm text-neutral-900 focus:outline-none focus:border-neutral-900 transition-colors">
+              <option>Excellent</option>
+              <option>Very Good</option>
+              <option>Good</option>
+              <option>Fair</option>
+            </select>
+          </div>
+
+          <div className="flex gap-3 pt-4">
+            <button 
+              onClick={() => setActiveTab('portfolio')}
+              className="flex-1 border border-neutral-300 hover:bg-neutral-50 text-neutral-900 py-3 rounded-lg text-sm font-medium transition-colors"
+            >
+              Cancel
+            </button>
+            <button className="flex-1 bg-neutral-900 hover:bg-neutral-800 text-white py-3 rounded-lg text-sm font-medium transition-colors">
+              Add to Portfolio
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  const AlertPreferencesView = () => (
+    <div className="max-w-2xl mx-auto">
+      <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-8">
+        <h1 className="text-2xl font-light text-neutral-900 mb-6">Alert Preferences</h1>
+        
+        <div className="space-y-6">
+          <div>
+            <h2 className="text-sm font-medium text-neutral-900 mb-4">ALERT TYPES</h2>
+            <div className="space-y-3">
+              {[
+                { label: 'Price Drop Alerts', desc: 'When tracked watches drop in price' },
+                { label: 'Buy Signals', desc: 'AI-powered buying opportunities' },
+                { label: 'Portfolio Updates', desc: 'Daily valuation changes' },
+                { label: 'Market Insights', desc: 'Weekly market trends and analysis' },
+                { label: 'Social Activity', desc: 'When collectors buy watches you\'re tracking' }
+              ].map((alert, idx) => (
+                <div key={idx} className="flex items-center justify-between py-3 border-b border-neutral-200 last:border-0">
+                  <div>
+                    <div className="text-neutral-900 font-medium text-sm mb-1">{alert.label}</div>
+                    <div className="text-neutral-500 text-xs">{alert.desc}</div>
+                  </div>
+                  <label className="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" defaultChecked className="sr-only peer" />
+                    <div className="w-11 h-6 bg-neutral-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-neutral-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-neutral-900"></div>
+                  </label>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="pt-6">
+            <h2 className="text-sm font-medium text-neutral-900 mb-4">NOTIFICATION CHANNELS</h2>
+            <div className="space-y-3">
+              {[
+                { label: 'Email', desc: 'alerts@luxy.com' },
+                { label: 'Push Notifications', desc: 'Mobile and desktop' },
+                { label: 'SMS', desc: '+1 (555) 123-4567' }
+              ].map((channel, idx) => (
+                <div key={idx} className="flex items-center justify-between py-3 border-b border-neutral-200 last:border-0">
+                  <div>
+                    <div className="text-neutral-900 font-medium text-sm mb-1">{channel.label}</div>
+                    <div className="text-neutral-500 text-xs">{channel.desc}</div>
+                  </div>
+                  <label className="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" defaultChecked className="sr-only peer" />
+                    <div className="w-11 h-6 bg-neutral-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-neutral-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-neutral-900"></div>
+                  </label>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="pt-6">
+            <h2 className="text-sm font-medium text-neutral-900 mb-4">ALERT FREQUENCY</h2>
+            <select className="w-full bg-neutral-50 border border-neutral-200 rounded-lg px-4 py-2.5 text-sm text-neutral-900 focus:outline-none focus:border-neutral-900 transition-colors">
+              <option>Real-time (as they happen)</option>
+              <option>Daily digest (once per day)</option>
+              <option>Weekly digest (once per week)</option>
+            </select>
+          </div>
+
+          <button className="w-full bg-neutral-900 hover:bg-neutral-800 text-white py-3 rounded-lg text-sm font-medium transition-colors mt-6">
+            Save Preferences
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+
+  const ProfileView = () => (
+    <div className="max-w-4xl mx-auto">
+      <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-8 mb-6">
+        <div className="flex items-start justify-between mb-6">
+          <div className="flex gap-6">
+            <div className="w-24 h-24 bg-neutral-200 rounded-full flex items-center justify-center text-4xl">
+              👤
+            </div>
+            <div>
+              <h1 className="text-2xl font-light text-neutral-900 mb-1">James Mitchell</h1>
+              <p className="text-neutral-500 mb-3">Collector since 2021</p>
+              <div className="flex items-center gap-2 text-sm">
+                <span className={`px-3 py-1 rounded-full text-xs font-medium ${isPublicProfile ? 'bg-emerald-100 text-emerald-700' : 'bg-neutral-100 text-neutral-700'}`}>
+                  {isPublicProfile ? 'Public Profile' : 'Private Profile'}
+                </span>
+                <button 
+                  onClick={() => setIsPublicProfile(!isPublicProfile)}
+                  className="text-neutral-600 hover:text-neutral-900 text-xs font-medium"
+                >
+                  Change
+                </button>
+              </div>
+            </div>
+          </div>
+          <button className="border border-neutral-300 hover:bg-neutral-50 text-neutral-900 px-5 py-2 rounded-lg text-sm font-medium transition-colors">
+            Edit Profile
+          </button>
+        </div>
+
+        <div className="grid grid-cols-3 gap-6 pt-6 border-t border-neutral-200">
+          <div>
+            <div className="text-neutral-500 text-xs font-medium mb-1">COLLECTION VALUE</div>
+            <div className="text-2xl font-light text-neutral-900">$31,900</div>
+          </div>
+          <div>
+            <div className="text-neutral-500 text-xs font-medium mb-1">WATCHES OWNED</div>
+            <div className="text-2xl font-light text-neutral-900">3</div>
+          </div>
+          <div>
+            <div className="text-neutral-500 text-xs font-medium mb-1">TRACKING</div>
+            <div className="text-2xl font-light text-neutral-900">12</div>
+          </div>
+        </div>
+      </div>
+
+      {isPublicProfile && (
+        <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-8 mb-6">
+          <h2 className="text-lg font-light text-neutral-900 mb-4">Public Collection</h2>
+          <p className="text-neutral-500 text-sm mb-6">Your collection is visible to other Luxy members</p>
+          <div className="space-y-3">
+            {portfolio.map((item, idx) => (
+              <div key={idx} className="flex justify-between items-center py-3 border-b border-neutral-200 last:border-0">
+                <div>
+                  <h3 className="text-neutral-900 font-medium text-sm">{item.brand} {item.model}</h3>
+                  <p className="text-neutral-500 text-xs">Added 2 years ago</p>
+                </div>
+                <div className="text-emerald-600 text-sm font-medium">+{item.change}%</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-8">
+        <h2 className="text-lg font-light text-neutral-900 mb-4">Activity</h2>
+        <div className="space-y-4">
+          {[
+            { action: 'Added Rolex Daytona to watchlist', time: '2 hours ago' },
+            { action: 'Received buy signal for Patek Philippe Nautilus', time: '5 hours ago' },
+            { action: 'Portfolio value increased by $1,200', time: '1 day ago' }
+          ].map((activity, idx) => (
+            <div key={idx} className="flex justify-between items-center py-3 border-b border-neutral-200 last:border-0">
+              <p className="text-neutral-900 text-sm">{activity.action}</p>
+              <span className="text-neutral-400 text-xs">{activity.time}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+
+  const SettingsView = () => (
+    <div className="max-w-2xl mx-auto">
+      <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-8 mb-6">
+        <h1 className="text-2xl font-light text-neutral-900 mb-6">Settings</h1>
+        
+        <div className="space-y-6">
+          <div>
+            <h2 className="text-sm font-medium text-neutral-900 mb-4">ACCOUNT</h2>
+            <div className="space-y-3">
+              <div>
+                <label className="block text-sm text-neutral-600 mb-2">Email</label>
+                <input
+                  type="email"
+                  defaultValue="james.mitchell@email.com"
+                  className="w-full bg-neutral-50 border border-neutral-200 rounded-lg px-4 py-2.5 text-sm text-neutral-900 focus:outline-none focus:border-neutral-900 transition-colors"
+                />
+              </div>
+              <div>
+                <label className="block text-sm text-neutral-600 mb-2">Password</label>
+                <button className="text-neutral-900 text-sm font-medium hover:opacity-70">
+                  Change Password
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div className="pt-6 border-t border-neutral-200">
+            <h2 className="text-sm font-medium text-neutral-900 mb-4">SUBSCRIPTION</h2>
+            <div className="bg-neutral-50 rounded-lg p-5 border border-neutral-200">
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-neutral-900 font-medium">Luxy Pro</span>
+                <span className="text-neutral-900 font-medium">$29/month</span>
+              </div>
+              <p className="text-neutral-500 text-sm mb-3">Next billing date: November 15, 2025</p>
+              <button className="text-neutral-900 text-sm font-medium hover:opacity-70">
+                Manage Subscription
+              </button>
+            </div>
+          </div>
+
+          <div className="pt-6 border-t border-neutral-200">
+            <h2 className="text-sm font-medium text-neutral-900 mb-4">PRIVACY</h2>
+            <div className="space-y-3">
+              <div className="flex items-center justify-between py-3">
+                <div>
+                  <div className="text-neutral-900 text-sm mb-1">Public Profile</div>
+                  <div className="text-neutral-500 text-xs">Allow others to see your collection</div>
+                </div>
+                <label className="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" className="sr-only peer" />
+                  <div className="w-11 h-6 bg-neutral-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-neutral-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-neutral-900"></div>
+                </label>
+              </div>
+              <div className="flex items-center justify-between py-3">
+                <div>
+                  <div className="text-neutral-900 text-sm mb-1">Anonymous Browsing</div>
+                  <div className="text-neutral-500 text-xs">Hide your activity from others</div>
+                </div>
+                <label className="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" defaultChecked className="sr-only peer" />
+                  <div className="w-11 h-6 bg-neutral-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-neutral-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-neutral-900"></div>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div className="pt-6 border-t border-neutral-200">
+            <h2 className="text-sm font-medium text-red-600 mb-4">DANGER ZONE</h2>
+            <button className="text-red-600 text-sm font-medium hover:opacity-70">
+              Delete Account
+            </button>
+          </div>
+
+          <button className="w-full bg-neutral-900 hover:bg-neutral-800 text-white py-3 rounded-lg text-sm font-medium transition-colors mt-6">
+            Save Changes
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 
   const DashboardView = () => (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -209,13 +664,83 @@ export default function App() {
         <div className="bg-white rounded-xl border border-neutral-200 shadow-sm p-5">
           <h2 className="text-sm font-medium text-neutral-900 mb-4">QUICK ACTIONS</h2>
           <div className="space-y-2">
-            <button className="w-full bg-neutral-900 hover:bg-neutral-800 text-white py-3 rounded-lg text-sm font-medium transition-colors flex items-center justify-center">
+            <button 
+              onClick={() => setActiveTab('addwatch')}
+              className="w-full bg-neutral-900 hover:bg-neutral-800 text-white py-3 rounded-lg text-sm font-medium transition-colors flex items-center justify-center">
               <Camera className="w-4 h-4 mr-2" />
               Add Watch to Portfolio
             </button>
             <button className="w-full border border-neutral-300 hover:bg-neutral-50 text-neutral-900 py-3 rounded-lg text-sm font-medium transition-colors">
               Browse Opportunities
             </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  const PortfolioView = () => (
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="lg:col-span-2">
+        <div className="bg-white rounded-xl border border-neutral-200 shadow-sm overflow-hidden">
+          <div className="p-6 border-b border-neutral-200">
+            <div className="flex justify-between items-start mb-6">
+              <div>
+                <h2 className="text-2xl font-light text-neutral-900 mb-1">My Collection</h2>
+                <p className="text-neutral-500 text-sm">Track your luxury watch portfolio</p>
+              </div>
+              <button 
+                onClick={() => setActiveTab('addwatch')}
+                className="bg-neutral-900 hover:bg-neutral-800 text-white px-5 py-2.5 rounded-lg text-sm font-medium transition-colors flex items-center">
+                <Camera className="w-4 h-4 mr-2" />
+                Add Watch
+              </button>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="bg-neutral-50 rounded-lg p-4 border border-neutral-200">
+                <div className="text-neutral-500 text-xs font-medium mb-1">TOTAL VALUE</div>
+                <div className="text-2xl font-light text-neutral-900">$31,900</div>
+              </div>
+              <div className="bg-neutral-50 rounded-lg p-4 border border-neutral-200">
+                <div className="text-neutral-500 text-xs font-medium mb-1">TOTAL GAIN</div>
+                <div className="text-2xl font-light text-emerald-600">+$5,400</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="divide-y divide-neutral-200">
+            {portfolio.map((item, idx) => (
+              <div key={idx} className="p-6 hover:bg-neutral-50 transition-colors">
+                <div className="flex justify-between items-center">
+                  <div>
+                    <h3 className="text-neutral-900 font-medium mb-1">{item.brand} {item.model}</h3>
+                    <p className="text-neutral-500 text-sm">Purchase: ${item.purchasePrice.toLocaleString()}</p>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-neutral-900 font-medium text-lg">${item.currentValue.toLocaleString()}</div>
+                    <div className="text-emerald-600 text-sm font-medium">+{item.change}%</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="space-y-6">
+        <div className="bg-gradient-to-br from-neutral-900 to-neutral-800 rounded-xl p-6 text-white shadow-lg">
+          <h2 className="text-sm font-medium mb-4 opacity-80">PORTFOLIO ANALYSIS</h2>
+          <div className="space-y-4">
+            <div>
+              <div className="text-xs opacity-70 mb-1">Best Performer</div>
+              <div className="text-lg font-medium">Rolex Submariner</div>
+              <div className="text-emerald-400 text-sm">+31.7% gain</div>
+            </div>
+            <div className="pt-4 border-t border-neutral-700">
+              <div className="text-xs opacity-70 mb-1">Recommendation</div>
+              <div className="text-sm leading-relaxed">Consider diversifying into Cartier watches, showing 4% growth trend.</div>
+            </div>
           </div>
         </div>
       </div>
@@ -231,7 +756,7 @@ export default function App() {
               <h1 className="text-2xl font-light tracking-tight text-neutral-900">
                 Ciao Lusso
               </h1>
-              <p className="text-[10px] text-neutral-500 tracking-wide">TIMING MATTERS</p>
+              <p className="text-[10px] text-neutral-500 tracking-wide">TIME MATTERS</p>
             </div>
             
             <div className="hidden md:flex items-center gap-8">
@@ -248,6 +773,17 @@ export default function App() {
                 Portfolio
               </button>
               <button 
+                onClick={() => { setActiveTab('alerts'); setSelectedWatch(null); }}
+                className={`text-sm font-medium transition-colors ${activeTab === 'alerts' ? 'text-neutral-900' : 'text-neutral-400 hover:text-neutral-900'}`}
+              >
+                Alerts
+              </button>
+              <button 
+                onClick={() => { setActiveTab('settings'); setSelectedWatch(null); }}
+                className={`transition-colors ${activeTab === 'settings' ? 'text-neutral-900' : 'text-neutral-400 hover:text-neutral-900'}`}>
+                <Settings className="w-5 h-5" />
+              </button>
+              <button 
                 onClick={() => { setActiveTab('profile'); setSelectedWatch(null); }}
                 className={`transition-colors ${activeTab === 'profile' ? 'text-neutral-900' : 'text-neutral-400 hover:text-neutral-900'}`}>
                 <User className="w-5 h-5" />
@@ -262,6 +798,41 @@ export default function App() {
             </button>
           </div>
         </div>
+
+        {showMenu && (
+          <div className="md:hidden bg-white border-t border-neutral-200 px-6 py-3">
+            <button 
+              onClick={() => { setActiveTab('dashboard'); setShowMenu(false); setSelectedWatch(null); }}
+              className="w-full text-left px-4 py-3 text-neutral-600 hover:bg-neutral-50 rounded-lg"
+            >
+              Dashboard
+            </button>
+            <button 
+              onClick={() => { setActiveTab('portfolio'); setShowMenu(false); setSelectedWatch(null); }}
+              className="w-full text-left px-4 py-3 text-neutral-600 hover:bg-neutral-50 rounded-lg"
+            >
+              Portfolio
+            </button>
+            <button 
+              onClick={() => { setActiveTab('alerts'); setShowMenu(false); setSelectedWatch(null); }}
+              className="w-full text-left px-4 py-3 text-neutral-600 hover:bg-neutral-50 rounded-lg"
+            >
+              Alerts
+            </button>
+            <button 
+              onClick={() => { setActiveTab('profile'); setShowMenu(false); setSelectedWatch(null); }}
+              className="w-full text-left px-4 py-3 text-neutral-600 hover:bg-neutral-50 rounded-lg"
+            >
+              Profile
+            </button>
+            <button 
+              onClick={() => { setActiveTab('settings'); setShowMenu(false); setSelectedWatch(null); }}
+              className="w-full text-left px-4 py-3 text-neutral-600 hover:bg-neutral-50 rounded-lg"
+            >
+              Settings
+            </button>
+          </div>
+        )}
       </nav>
 
       <div className="bg-white border-b border-neutral-200">
@@ -278,7 +849,13 @@ export default function App() {
       </div>
 
       <main className="max-w-7xl mx-auto px-6 lg:px-8 py-8">
-        <DashboardView />
+        {selectedWatch && <WatchDetailView />}
+        {!selectedWatch && activeTab === 'dashboard' && <DashboardView />}
+        {!selectedWatch && activeTab === 'portfolio' && <PortfolioView />}
+        {!selectedWatch && activeTab === 'addwatch' && <AddWatchView />}
+        {!selectedWatch && activeTab === 'alerts' && <AlertPreferencesView />}
+        {!selectedWatch && activeTab === 'profile' && <ProfileView />}
+        {!selectedWatch && activeTab === 'settings' && <SettingsView />}
       </main>
 
       <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-neutral-200 px-4 py-3 safe-area-bottom">
@@ -297,7 +874,10 @@ export default function App() {
             <BarChart3 className="w-5 h-5" />
             <span className="text-xs font-medium">Portfolio</span>
           </button>
-          <button className="flex flex-col items-center gap-1 text-neutral-400">
+          <button 
+            onClick={() => { setActiveTab('alerts'); setSelectedWatch(null); }}
+            className={`flex flex-col items-center gap-1 ${activeTab === 'alerts' ? 'text-neutral-900' : 'text-neutral-400'}`}
+          >
             <Bell className="w-5 h-5" />
             <span className="text-xs font-medium">Alerts</span>
           </button>
